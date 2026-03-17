@@ -1,0 +1,243 @@
+/* Wiki Style Reset and Basics */
+body {
+    font-family: sans-serif;
+    color: #202122;
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #000;
+    font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+    font-weight: normal;
+    margin-bottom: 0.25em;
+    padding: 0;
+}
+
+a {
+    color: #0645ad;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #0b0080;
+}
+
+p {
+    margin: 0.5em 0 1em 0;
+}
+
+ul {
+    list-style-type: square;
+    margin: 0.3em 0 1.5em 1.5em;
+    padding: 0;
+}
+
+/* Layout */
+.wiki-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #a7d7f9;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 11em;
+    padding: 1em 0.5em 1em 1em;
+    background-color: #f6f6f6;
+    border-right: 1px solid #a7d7f9;
+}
+
+.sidebar-logo {
+    font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #000;
+}
+
+.sidebar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1.5em;
+}
+
+.sidebar-nav li {
+    margin: 0;
+    padding: 0;
+    font-size: 0.85em;
+    line-height: 1.5;
+}
+
+.sidebar-nav a {
+    display: block;
+    color: #0645ad;
+}
+
+.sidebar-section h3 {
+    font-family: sans-serif;
+    font-size: 0.85em;
+    color: #444;
+    border-bottom: 1px solid #c8ccd1;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.2em;
+}
+
+/* Main Content */
+.content {
+    flex-grow: 1;
+    padding: 1.5em 2em;
+    background-color: #ffffff;
+    max-width: calc(100% - 11em);
+}
+
+.page-title {
+    font-size: 1.8em;
+    border-bottom: 1px solid #a2a9b1;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.2em;
+}
+
+.section-heading {
+    font-size: 1.5em;
+    border-bottom: 1px solid #a2a9b1;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.2em;
+}
+
+/* Table of Contents */
+.toc {
+    display: inline-block;
+    background-color: #f8f9fa;
+    border: 1px solid #a2a9b1;
+    padding: 7px;
+    font-size: 95%;
+    margin-bottom: 1em;
+}
+
+.toc-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+.toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1.5em;
+}
+
+.toc>ul {
+    padding: 0;
+}
+
+/* Infobox */
+.infobox {
+    float: right;
+    clear: right;
+    width: 22em;
+    border: 1px solid #a2a9b1;
+    background-color: #f8f9fa;
+    margin: 0.5em 0 1em 1em;
+    padding: 0.2em;
+    font-size: 88%;
+    line-height: 1.5em;
+}
+
+.infobox-title {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 0.2em;
+    background-color: #b0c4de;
+}
+
+.infobox-data {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.infobox-data th {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.2em 0.4em;
+    width: 35%;
+}
+
+.infobox-data td {
+    padding: 0.2em 0.4em;
+}
+
+/* Book Entries */
+.book-entry {
+    display: flex;
+    margin-bottom: 1.5em;
+    border: 1px solid #eaecf0;
+    padding: 1em;
+    background-color: #f8f9fa;
+}
+
+.book-image {
+    flex: 0 0 120px;
+    margin-right: 1.5em;
+}
+
+.book-image img {
+    width: 100px;
+    border: 1px solid #c8ccd1;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.book-details h4 {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 0;
+}
+
+.book-details p {
+    font-size: 0.9em;
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .wiki-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: auto;
+        border-right: none;
+        border-bottom: 1px solid #a7d7f9;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+    }
+
+    .content {
+        max-width: 100%;
+    }
+
+    .infobox {
+        float: none;
+        width: 100%;
+        margin: 1em 0;
+    }
+}
