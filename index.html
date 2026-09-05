@@ -1,231 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kraemerverse - Wiki</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRAEMEVERSE WIKI // LCARS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --orange: #ff9900;
+      --amber: #ffcc00;
+      --blue: #99ccff;
+      --lavender: #cc99cc;
+      --red: #cc6666;
+      --teal: #3399cc;
+      --dim: rgba(18,22,32,0.85);
+      --border: rgba(255,153,0,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: var(--bg); color: #fff; font-family: 'Share Tech Mono', monospace; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 800px 500px at 20% 10%, rgba(255,153,0,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 700px 400px at 80% 85%, rgba(153,102,204,0.05) 0%, transparent 60%);
+    }
+    .frame {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      min-height: 100vh;
+      position: relative; z-index: 1;
+      padding: 20px;
+      gap: 16px;
+    }
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 8px; }
+    .elbow {
+      height: 80px; background: var(--orange); border-radius: 40px 0 0 0;
+      display: flex; align-items: flex-end; padding: 10px 14px;
+      font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 11px;
+      color: #000; letter-spacing: 2px;
+    }
+    .bar { height: 40px; display: flex; align-items: center; padding: 0 12px;
+      font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; color: #000; }
+    .bar.amber { background: var(--amber); }
+    .bar.blue  { background: var(--blue); }
+    .bar.red   { background: var(--red); }
+    .bar.lavender { background: var(--lavender); }
+    .spacer { flex: 1; background: rgba(255,153,0,0.12); border-left: 10px solid var(--orange); min-height: 40px; }
+    .endcap { height: 50px; background: var(--lavender); border-radius: 0 0 0 25px;
+      display: flex; align-items: center; padding-left: 14px;
+      font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700;
+      color: #000; letter-spacing: 1px; }
+    /* MAIN */
+    .main { display: flex; flex-direction: column; gap: 20px; }
+    .top-bar {
+      background: var(--dim); border: 1px solid var(--border);
+      border-radius: 0 20px 20px 0; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      box-shadow: 0 0 30px rgba(255,153,0,0.07);
+    }
+    .sys-label { font-family: 'Orbitron', sans-serif; font-size: 10px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; }
+    .title { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; color: var(--orange); letter-spacing: 4px; text-transform: uppercase; }
+    .badge { background: rgba(255,204,0,0.1); border: 1px solid var(--amber); color: var(--amber);
+      padding: 4px 12px; border-radius: 4px; font-size: 10px; letter-spacing: 2px; }
+    /* DIVIDER */
+    .divider { display: flex; align-items: center; gap: 10px; }
+    .div-pill { width: 40px; height: 24px; background: var(--orange); border-radius: 12px 0 0 12px; }
+    .div-label { font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 800; color: var(--orange); letter-spacing: 3px; text-transform: uppercase; }
+    .div-bar { flex: 1; height: 5px; background: var(--orange); border-radius: 3px; }
+    /* CONTENT PANEL */
+    .panel {
+      background: var(--dim); border: 1px solid var(--border);
+      border-radius: 12px; border-left: 6px solid var(--orange);
+      padding: 32px 40px; display: flex; flex-direction: column; gap: 28px;
+    }
+    .description { color: #ccddff; font-size: 1.05rem; line-height: 1.75; max-width: 680px; }
+    .type-tag { display: inline-block; color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 4px; }
+    /* LAUNCH BTN */
+    .launch-wrap { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .lcars-btn {
+      background: var(--orange); color: #000; border: none;
+      border-radius: 28px; padding: 14px 52px;
+      font-size: 1.3rem; font-family: 'Orbitron', sans-serif; font-weight: 700;
+      letter-spacing: 0.2em; cursor: pointer; text-decoration: none;
+      display: inline-block; text-transform: uppercase;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px rgba(255,153,0,0.3);
+    }
+    .lcars-btn:hover { background: var(--amber); box-shadow: 0 0 30px rgba(255,204,0,0.5); }
+    .back-btn {
+      background: rgba(153,204,255,0.1); color: var(--blue);
+      border: 1px solid var(--blue); border-radius: 20px; padding: 10px 24px;
+      font-size: 0.85rem; font-family: 'Orbitron', sans-serif; font-weight: 700;
+      letter-spacing: 0.1em; cursor: pointer; text-decoration: none;
+      display: inline-block; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .back-btn:hover { background: var(--blue); color: #000; }
+    /* FOOTER */
+    footer { text-align: center; padding: 20px 0; color: var(--teal); font-size: 10px; letter-spacing: 3px; border-top: 1px solid var(--border); }
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .frame { grid-template-columns: 1fr; }
+      .sidebar { flex-direction: row; height: 50px; }
+      .elbow { border-radius: 20px 0 0 20px; width: 100px; height: 50px; font-size: 9px; }
+      .bar { height: 50px; flex: 1; }
+      .spacer { border-left: none; border-bottom: 6px solid var(--orange); min-height: 0; }
+      .endcap { border-radius: 0 20px 20px 0; height: 50px; }
+      .panel { padding: 20px; }
+      .title { font-size: 20px; }
+      .lcars-btn { padding: 12px 32px; font-size: 1.1rem; }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="wiki-container">
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar">
-            <div class="sidebar-logo">Kraemerverse Wiki</div>
-            <ul class="sidebar-nav">
-                <li><a href="#main">Main Page</a></li>
-                <li><a href="#about-author">About the Author</a></li>
-                <li><a href="#bibliography">Bibliography</a></li>
-                <li><a href="#hoag-universe">The HOAG Universe</a></li>
-            </ul>
-
-            <div class="sidebar-section">
-                <h3>Directory</h3>
-                <ul class="sidebar-nav">
-                    <li><a href="The Hoag/files/Home.html">The Hoag Index</a></li>
-                    <li><a href="Dark Deep/">Dark Deep Logs</a></li>
-                    <li><a href="The Hoag/files/Characters-Humans-GO.html">Characters (GO)</a></li>
-                    <li><a href="The Hoag/files/Ships-and-Vehicles.html">Technology</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="content">
-            <h1 id="main" class="page-title">Kraemerverse</h1>
-
-            <div class="toc">
-                <div class="toc-title">Contents</div>
-                <ul>
-                    <li><a href="#about-author">1 About the Author</a></li>
-                    <li><a href="#bibliography">2 Bibliography</a>
-                        <ul>
-                            <li><a href="#book-hoag">2.1 The Hoag</a></li>
-                            <li><a href="#book-hyphae">2.2 The Hyphae Strain</a></li>
-                            <li><a href="#book-shorts">2.3 Short Circuits</a></li>
-                            <li><a href="#book-other">2.4 Other Works</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#hoag-universe">3 The HOAG Universe</a></li>
-                </ul>
-            </div>
-
-            <p>The <b>Kraemerverse</b> is a collection of speculative fiction and hardcore science fiction works
-                authored by vON kRAEMER. It encompasses multiple interconnected storylines, spanning from near-future
-                Cold War thrillers to far-future galactic federations such as the <i>HOAG Universe</i>.</p>
-
-            <h2 id="about-author" class="section-heading">About the Author</h2>
-            <div class="infobox">
-                <div class="infobox-title">vON kRAEMER</div>
-                <img src="images/the_hoag.jpg" alt="Author Book Feature"
-                    style="width: 100%; border-bottom: 1px solid #a2a9b1;">
-                <table class="infobox-data">
-                    <tr>
-                        <th>Occupation</th>
-                        <td>Author, Effects Artist, Musician</td>
-                    </tr>
-                    <tr>
-                        <th>Genre</th>
-                        <td>Hard Science Fiction, Horror</td>
-                    </tr>
-                    <tr>
-                        <th>Company</th>
-                        <td>Galactic Pig Productions, Go Robotics FX</td>
-                    </tr>
-                    <tr>
-                        <th>Location</th>
-                        <td>North Hollywood, LA</td>
-                    </tr>
-                </table>
-            </div>
-
-            <p>Speculative fiction has always been a part of the author’s life. Son of design engineer and futurist,
-                Mitchell Bobrick, a science fiction book was more-often in the author’s hands than not. Hard Sci-Fi
-                authors like Niven, Benford, Baxter, and Haldeman forged Von’s "High Science" interest - most often used
-                in his literature. Horror also plays a key role, as most of his works are elementary future dysfunction.
-            </p>
-            <p>When not behind the computer keyboard the author spent the greater part of his life working behind camera
-                for Hollywood. The author owns and operates RAD sets and effects, and currently runs Galactic Pig
-                Productions - a small Sci-Fi production company. He also owns Go Robotics FX, a company dedicated to
-                invention and 3-D printing.</p>
-            <p>He can be found on occasion about LA playing the bass guitar and pounding a few brews. He looks forward
-                to unleashing the rest of what has patiently sat in his data vaults - upon the general public, for
-                better or worse. Write the author: <a href="mailto:von@galacticpig.com">von@galacticpig.com</a>, and he
-                will get back to you, and likely invite you for a beer. The author lives in North Hollywood.</p>
-
-            <h2 id="bibliography" class="section-heading">Bibliography</h2>
-
-            <h3 id="book-hoag">The HOAG</h3>
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/the_hoag.jpg" alt="THE HOAG Lost In Moments Collected Beyond Yesterday: Book 1">
-                </div>
-                <div class="book-details">
-                    <h4><a href="https://www.amazon.ca/dp/B01KW0ZN36">THE HOAG Lost In Moments Collected Beyond
-                            Yesterday: Book 1</a></h4>
-                    <p>JUMP into a far future where Soo and Qerid discover there is a purpose to live... a purpose not
-                        our own. G O DEEP! Dig into the best selling far-future sci-fi. Now fully illustrated by master
-                        artist Neco Kury Cardoso. OVER 30 spectacular images that will send you into the 49th century,
-                        where the last natural humanity tries to survive in a universe that has left the ancients
-                        behind. Yet for all our human simplicities and failures there is one - who has the ability to
-                        change all that exists. Rock on through this day-a-life of one of HomeWorld's very last living
-                        humans. There is no other Sci-fi Novel written to date that can compare with this groundbreaking
-                        Future tale, in all of its complexity. HARDCORE science fiction for those readers who demand
-                        "better."</p>
-                </div>
-            </div>
-
-            <h3 id="book-hyphae">The Hyphae Strain</h3>
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/the_hyphae_strain.jpg" alt="THE HYPHAE STRAIN: MOLD 69">
-                </div>
-                <div class="book-details">
-                    <h4>THE HYPHAE STRAIN: MOLD 69 (BOOK ONE)</h4>
-                    <p>A prototype cold war aircraft disintegrates and vanishes in 1964; a mail clerk discovers a lost
-                        package sent in 1969. Mik and Bitta are whirled into our insidious underworld - a group which
-                        has been hiding since before the birth of Christ. What was once a dark secret is now loose and
-                        many shall pay the price. A substance re-discovered in 1937 Japan is now running amok in today's
-                        world, and none who partake in the _Slam_ will ever be the same. Our world will change; bent by
-                        a will not our own. Prepare for the most disturbing and twisted ride of your life. The Hyphae
-                        Strain; a page-turner sure to horrify your very being.</p>
-                </div>
-            </div>
-
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/mold_69.jpg" alt="MOLD 69 Collector Edition">
-                </div>
-                <div class="book-details">
-                    <h4>MOLD 69: The Original The Hyphea Strain; Mold 69 collector edition</h4>
-                    <p>THE ORIGINAL BOOK> Uneditied. Collectors edition. "WHAT IS MOLD 69?" Open the cover and discover
-                        the most twisted, sick and horrifying story you will ever read. What HORROR / SCI-FI fans expect
-                        in a great novel. A triple XXX rating for action and content. Not for those faint of heart. More
-                        intense than Steven King; science instead of the supernatural. At book's end you find yourself
-                        deep in a real world - hidden within our own. You will be transported from 1964 to 2019 to 1945.
-                        The path upon which MOLD 69 crawls. MOLD 69 is more than what is on the surface, MOLD 69 is
-                        insidious, and will "slam" under your skin.</p>
-                </div>
-            </div>
-
-            <h3 id="book-shorts">Anthologies</h3>
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/short_circuits.jpg" alt="SHORT CIRCUITS">
-                </div>
-                <div class="book-details">
-                    <h4>SHORT CIRCUITS: The Complete Short Story Anthology</h4>
-                    <p>SHORT CIRCUITS Found within these pages are vON kRAEMER’s very bests. Short stories that will not
-                        only make you think but: Laugh, ponder, freak out, and question our future. 20 years of shorts
-                        that will leave you saying: “ What the #@*% ! “ Journey down the fractured cobbles. Leave the
-                        normal path and become both satisfied and amazed. Inside are not only shorts but vON kRAEMER’s
-                        teasers; his best selling novels. Worthy writs; taking you beyond.</p>
-                </div>
-            </div>
-
-            <h3 id="book-other">Other Works</h3>
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/restart.jpg" alt="RESTART">
-                </div>
-                <div class="book-details">
-                    <h4>RESTART</h4>
-                    <p>Arthur Rossi was a Football Hero! However, Art's last touchdown was forty years ago. He would
-                        never run again. The cancer had tackled him for the last time. Death was certainly only days
-                        away... unless Arthur agreed to do the RESTART. The procedure would cure his cancer. RESTART had
-                        a 100% success rate. However, with every gift, comes a cost. A cost that would change Art's life
-                        forever. Should he choose to live forever... in a form Far Different from his previous
-                        existence.</p>
-                </div>
-            </div>
-
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/blood_moon.jpg" alt="BLOOD MOON">
-                </div>
-                <div class="book-details">
-                    <h4>BLOOD MOON</h4>
-                    <p>Donald Arenberg should have gone home on Friday, but he didn't. It was the Moon's fault. Blunders
-                        by an overworked physicist create a world-changing effect, by way of a cup of coffee, a particle
-                        detector, the tiniest energies in our universe, and unfortunately...... with the assistance of
-                        the BLOOD MOON. Coffee, Mystery, Terror, and Science. The worst mix possible, when on the job!
-                    </p>
-                </div>
-            </div>
-
-            <div class="book-entry">
-                <div class="book-image">
-                    <img src="images/curse_of_the_dinosaurs.jpg" alt="Curse Of The Dinosaurs">
-                </div>
-                <div class="book-details">
-                    <h4>Curse Of The Dinosaurs: The Leadman Accounts</h4>
-                    <p>DARK HUMOR AT ITS BEST. What a paleontologist discovers in the Chinese Gobi Desert alters
-                        humanity’s destiny. Prepare for the most action-packed and disturbing ride of your petty human
-                        existence. CURSE OF THE DINOSAURS, consider yourself fortunate the dinosaurs are currently
-                        extinct. Soon to be a Feature Film! The revised edition which conforms to the movie - with
-                        extras.</p>
-                </div>
-            </div>
-
-            <h2 id="hoag-universe" class="section-heading">The HOAG Universe</h2>
-            <p>The HOAG universe spans the <b>GalacticPig Super-Group</b> — a federation of 50 colonized galaxies
-                including the Milky Way, Andromeda, and Triangulum. Earth, now called <b>HomeWorld</b>, is the ancestral
-                cradle of humanity. A universal AI known as <b>Server</b> connects all Persons and Personates across
-                colonized space.</p>
-            <p>Humanity has fractured into several distinct types:</p>
-            <ul>
-                <li><b>Genetic Originals (GOs)</b>: Unmodified humans who reject genetic enhancement.</li>
-                <li><b>Personates</b>: Genetically Enhanced (GE) offshoots of Homo Sapiens adapted for colony-world
-                    survival.</li>
-                <li><b>Augmented</b>: Humans who have accepted various cybernetic or biological enhancements.</li>
-                <li><b>Exiters</b>: Former humans who have abandoned biological life entirely and now occupy the
-                    Andromeda galaxy behind an AI firewall called OmniBlock.</li>
-            </ul>
-
-        </main>
-    </div>
+  <div class="frame">
+    <aside class="sidebar">
+      <div class="elbow">LCARS</div>
+      <div class="bar amber">SYS-01</div>
+      <div class="bar blue">NET-02</div>
+      <div class="bar red">AUX-03</div>
+      <div class="bar lavender">LOG-04</div>
+      <div class="spacer"></div>
+      <div class="endcap">BIG0TIME</div>
+    </aside>
+    <main class="main">
+      <div class="top-bar">
+        <div>
+          <div class="sys-label">BIG0TIME // PROJECT DATABASE</div>
+          <div class="title">⚡ KRAEMEVERSE WIKI</div>
+        </div>
+        <div class="badge">NODE ONLINE</div>
+      </div>
+      <div class="divider">
+        <div class="div-pill"></div>
+        <div class="div-label">SYSTEM PROFILE</div>
+        <div class="div-bar"></div>
+      </div>
+      <div class="panel">
+        <div>
+          <div class="type-tag">// APPLICATION</div>
+          <p class="description">An encyclopedic wiki for the Kraemerverse fictional universe. Browse the HOAG universe, characters, ships, technology, and Dark Deep mission logs — the complete lore database for the Kraemer literary world.</p>
+        </div>
+        <div class="launch-wrap">
+          <a href="app.html" class="lcars-btn">LAUNCH</a>
+          <a href="https://polerix.github.io/big0time/" class="back-btn">← INDEX</a>
+        </div>
+      </div>
+      <footer>LCARS INTERFACE // BIG0TIME PROJECT DATABASE // STARFLEET SUBSPACE NODE</footer>
+    </main>
+  </div>
 </body>
-
 </html>
